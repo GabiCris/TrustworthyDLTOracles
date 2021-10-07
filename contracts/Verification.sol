@@ -6,7 +6,19 @@ import "./tls-n/tlsnutils.sol";
 contract Verification {
     using bytesutils for *;
 
-     bytes32 pubKey;
+    bytes32 pubKey;
+    address public oracleAddress;
+  
+    constructor (address _oracleAddress) public {
+        oracleAddress = _oracleAddress;
+    }
+
+    event SuccesfulMessage(string msg);
+
+    function receiveMessage (string msg) public {
+        require(msg.sender == oracleAddress);
+        emit SuccesfulMessage(msg);
+    }
      
 
     function  PubKey(bytes32 initKey) public {
