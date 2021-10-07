@@ -1,0 +1,122 @@
+{
+  "contractName": "RoyaltyComputation",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/C/Users/n3zqi/Desktop/thesis/TrustworthyDLT/contracts/RoyaltyComputation.sol\":\"RoyaltyComputation\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/n3zqi/Desktop/thesis/TrustworthyDLT/contracts/RoyaltyComputation.sol\":{\"keccak256\":\"0x60fa64ce14e23c5f504c59270dbfb24c97c18d38ab86555f8202a46de66db7bd\",\"urls\":[\"bzz-raw://34920f1ae09711ed9f4b75c6bee4fbbce4886ac4e1aaa025cfb899ebf9a832d6\",\"dweb:/ipfs/QmX7eZEky3dyA1cZrp6YKx2TLsB39FZiMJVpSfWqWVxbV6\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603e80601d6000396000f3fe6080604052600080fdfea265627a7a72315820126490cb34d9aa99adb2431d56ece6c4c65658ee5438e486ab9b31dcd4e18f9864736f6c63430005100032",
+  "deployedBytecode": "0x6080604052600080fdfea265627a7a72315820126490cb34d9aa99adb2431d56ece6c4c65658ee5438e486ab9b31dcd4e18f9864736f6c63430005100032",
+  "sourceMap": "36:34:2:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;36:34:2;;;;;;;",
+  "deployedSourceMap": "36:34:2:-;;;;;",
+  "source": "pragma solidity >=0.4.25 <0.7.0;\r\n\r\ncontract RoyaltyComputation {\r\n\r\n}",
+  "sourcePath": "C:/Users/n3zqi/Desktop/thesis/TrustworthyDLT/contracts/RoyaltyComputation.sol",
+  "ast": {
+    "absolutePath": "/C/Users/n3zqi/Desktop/thesis/TrustworthyDLT/contracts/RoyaltyComputation.sol",
+    "exportedSymbols": {
+      "RoyaltyComputation": [
+        8
+      ]
+    },
+    "id": 9,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 7,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".25",
+          "<",
+          "0.7",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:32:2"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 8,
+        "linearizedBaseContracts": [
+          8
+        ],
+        "name": "RoyaltyComputation",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 9,
+        "src": "36:34:2"
+      }
+    ],
+    "src": "0:70:2"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "/C/Users/n3zqi/Desktop/thesis/TrustworthyDLT/contracts/RoyaltyComputation.sol",
+      "exportedSymbols": {
+        "RoyaltyComputation": [
+          8
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            ">=",
+            "0.4",
+            ".25",
+            "<",
+            "0.7",
+            ".0"
+          ]
+        },
+        "id": 7,
+        "name": "PragmaDirective",
+        "src": "0:32:2"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            8
+          ],
+          "name": "RoyaltyComputation",
+          "nodes": [
+            null
+          ],
+          "scope": 9
+        },
+        "id": 8,
+        "name": "ContractDefinition",
+        "src": "36:34:2"
+      }
+    ],
+    "id": 9,
+    "name": "SourceUnit",
+    "src": "0:70:2"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.3.3",
+  "updatedAt": "2021-09-28T12:27:08.380Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

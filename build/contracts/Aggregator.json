@@ -1,0 +1,122 @@
+{
+  "contractName": "Aggregator",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/C/Users/n3zqi/Desktop/thesis/TrustworthyDLT/contracts/Aggregator.sol\":\"Aggregator\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/n3zqi/Desktop/thesis/TrustworthyDLT/contracts/Aggregator.sol\":{\"keccak256\":\"0x2be6f4351da023d20254d75cd24248d3442ba25dcffa0b4e3e039dc05b8621d0\",\"urls\":[\"bzz-raw://49bb4e494a9f3c64fb87b450d71ab1a5d5296a436efa1febcda81cf68f6ff138\",\"dweb:/ipfs/Qma3uVHVj7XDc4bo64cZi8N4muBMfz2dGvNy28F6nmYNHy\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603e80601d6000396000f3fe6080604052600080fdfea265627a7a723158206903003767d5f93dad4dc66ff05c13554fa725a4fd3bcee6ba74c74989cfd84f64736f6c63430005100032",
+  "deployedBytecode": "0x6080604052600080fdfea265627a7a723158206903003767d5f93dad4dc66ff05c13554fa725a4fd3bcee6ba74c74989cfd84f64736f6c63430005100032",
+  "sourceMap": "36:26:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;36:26:0;;;;;;;",
+  "deployedSourceMap": "36:26:0:-;;;;;",
+  "source": "pragma solidity >=0.4.25 <0.7.0;\r\n\r\ncontract Aggregator {\r\n\r\n}",
+  "sourcePath": "C:/Users/n3zqi/Desktop/thesis/TrustworthyDLT/contracts/Aggregator.sol",
+  "ast": {
+    "absolutePath": "/C/Users/n3zqi/Desktop/thesis/TrustworthyDLT/contracts/Aggregator.sol",
+    "exportedSymbols": {
+      "Aggregator": [
+        2
+      ]
+    },
+    "id": 3,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".25",
+          "<",
+          "0.7",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:32:0"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 2,
+        "linearizedBaseContracts": [
+          2
+        ],
+        "name": "Aggregator",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 3,
+        "src": "36:26:0"
+      }
+    ],
+    "src": "0:62:0"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "/C/Users/n3zqi/Desktop/thesis/TrustworthyDLT/contracts/Aggregator.sol",
+      "exportedSymbols": {
+        "Aggregator": [
+          2
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            ">=",
+            "0.4",
+            ".25",
+            "<",
+            "0.7",
+            ".0"
+          ]
+        },
+        "id": 1,
+        "name": "PragmaDirective",
+        "src": "0:32:0"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            2
+          ],
+          "name": "Aggregator",
+          "nodes": [
+            null
+          ],
+          "scope": 3
+        },
+        "id": 2,
+        "name": "ContractDefinition",
+        "src": "36:26:0"
+      }
+    ],
+    "id": 3,
+    "name": "SourceUnit",
+    "src": "0:62:0"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.3.3",
+  "updatedAt": "2021-09-28T12:27:08.375Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
