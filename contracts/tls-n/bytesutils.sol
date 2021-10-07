@@ -1,5 +1,4 @@
-pragma solidity >=0.4.11 <0.7.0;
-
+pragma solidity ^0.4.11;
 /*
  * @title bytes utility library for Solidity contracts.
  * @author Anonymized for peer review
@@ -67,7 +66,7 @@ library bytesutils {
      * @param self The bytes to make a slice from.
      * @return A newly allocated slice containing the entire bytes.
      */
-    function toSlice(bytes memory self) internal returns (slice memory) {
+    function toSlice(bytes self) internal returns (slice) {
         uint ptr;
         assembly {
             ptr := add(self, 0x20)
@@ -75,7 +74,7 @@ library bytesutils {
         return slice(self.length, ptr);
     }
 
-    function addOffset(slice memory self, uint32 offset) internal returns (slice memory) {
+    function addOffset(slice self, uint32 offset) internal returns (slice) {
         require(offset <= self._len);
         self._ptr += offset;
         self._len -= offset; 
@@ -88,7 +87,7 @@ library bytesutils {
      * @param offset The offset within the bytestring.
      * @return A newly allocated slice containing the entire bytes.
      */
-    function toSlice(bytes memory self, uint32 offset) internal returns (slice memory) {
+    function toSlice(bytes self, uint32 offset) internal returns (slice) {
         slice memory ret = toSlice(self);
         return addOffset(ret, offset);
     }
@@ -132,7 +131,7 @@ library bytesutils {
      * @return A new slice containing the value of the input argument up to the
      *         first null.
      */
-    function toSliceB32(bytes32 self) internal returns (slice memory ret) {
+    function toSliceB32(bytes32 self) internal returns (slice ret) {
         // Allocate space for `self` in memory, copy it there, and point ret at it
         assembly {
             let ptr := mload(0x40)
@@ -148,7 +147,7 @@ library bytesutils {
      * @param self The slice to copy.
      * @return A new slice containing the same data as `self`.
      */
-    function copy(slice memory self) internal returns (slice memory) {
+    function copy(slice self) internal returns (slice) {
         return slice(self._len, self._ptr);
     }
 
@@ -157,7 +156,7 @@ library bytesutils {
      * @param self The slice to copy.
      * @return A newly allocated bytestring containing the slice's text.
      */
-    function toBytes(slice memory self) internal returns (bytes memory) {
+    function toBytes(slice self) internal returns (bytes) {
         var ret = new bytes(self._len);
         uint retptr;
         assembly { retptr := add(ret, 32) }
@@ -172,7 +171,7 @@ library bytesutils {
      * @param self The slice to copy.
      * @return A newly allocated string containing the slice's text.
      */
-    function toString(slice memory self) internal returns (string memory) {
+    function toString(slice self) internal returns (string) {
         var ret = new string(self._len);
         uint retptr;
         assembly { retptr := add(ret, 32) }
@@ -188,7 +187,7 @@ library bytesutils {
      * @param self The slice to operate on.
      * @return The length of the slice in bytes.
      */
-    function len(slice memory self) internal returns (uint) {
+    function len(slice self) internal returns (uint) {
         return self._len;
     }
 
@@ -197,7 +196,7 @@ library bytesutils {
      * @param self The slice to operate on.
      * @return True if the slice is empty, False otherwise.
      */
-    function empty(slice memory self) internal returns (bool) {
+    function empty(slice self) internal returns (bool) {
         return self._len == 0;
     }
 
@@ -210,7 +209,7 @@ library bytesutils {
      * @param other The second slice to compare.
      * @return The result of the comparison.
      */
-    function compare(slice memory self, slice memory other) internal returns (int) {
+    function compare(slice self, slice other) internal returns (int) {
         uint shortest = self._len;
         if (other._len < self._len)
             shortest = other._len;
@@ -243,7 +242,7 @@ library bytesutils {
      * @param self The second slice to compare.
      * @return True if the slices are equal, false otherwise.
      */
-    function equals(slice memory self, slice memory other) internal returns (bool) {
+    function equals(slice self, slice other) internal returns (bool) {
         return compare(self, other) == 0;
     }
 
@@ -254,7 +253,7 @@ library bytesutils {
      * @param rune The slice that will contain the first rune.
      * @return `rune`.
      */
-    function nextRune(slice memory self, slice memory rune) internal returns (slice memory) {
+    function nextRune(slice self, slice rune) internal returns (slice) {
         rune._ptr = self._ptr;
 
         if (self._len == 0) {
@@ -277,7 +276,7 @@ library bytesutils {
      * @param self The slice to operate on.
      * @return A slice containing only the first rune from `self`.
      */
-    function nextRune(slice memory self) internal returns (slice memory ret) {
+    function nextRune(slice self) internal returns (slice ret) {
         nextRune(self, ret);
     }
 
@@ -286,7 +285,7 @@ library bytesutils {
      * @param self The slice to operate on.
      * @return The number of the first codepoint in the slice.
      */
-    function ord(slice memory self) internal returns (uint ret) {
+    function ord(slice self) internal returns (uint ret) {
         if (self._len == 0) {
             return 0;
         }
@@ -306,7 +305,7 @@ library bytesutils {
      * @param self The slice to hash.
      * @return The hash of the slice.
      */
-    function keccak(slice memory self) internal returns (bytes32 ret) {
+    function keccak(slice self) internal returns (bytes32 ret) {
         assembly {
             ret := sha3(mload(add(self, 32)), mload(self))
         }
@@ -317,7 +316,7 @@ library bytesutils {
      * @param self The slice to hash.
      * @return The hash of the slice.
      */
-    function slicesha256(slice memory self) internal returns (bytes32) {
+    function slicesha256(slice self) internal returns (bytes32) {
         bytes memory x = toBytes(self);
         return sha256(x);
     }
@@ -329,7 +328,7 @@ library bytesutils {
      * @param needle The slice to search for.
      * @return True if the slice starts with the provided text, false otherwise.
      */
-    function startsWith(slice memory self, slice memory needle) internal returns (bool) {
+    function startsWith(slice self, slice needle) internal returns (bool) {
         if (self._len < needle._len) {
             return false;
         }
@@ -355,7 +354,7 @@ library bytesutils {
      * @param needle The slice to search for.
      * @return `self`
      */
-    function beyond(slice memory self, slice memory needle) internal returns (slice memory) {
+    function beyond(slice self, slice needle) internal returns (slice) {
         if (self._len < needle._len) {
             return self;
         }
@@ -384,7 +383,7 @@ library bytesutils {
      * @param needle The slice to search for.
      * @return True if the slice starts with the provided text, false otherwise.
      */
-    function endsWith(slice memory self, slice memory needle) internal returns (bool) {
+    function endsWith(slice self, slice needle) internal returns (bool) {
         if (self._len < needle._len) {
             return false;
         }
@@ -412,7 +411,7 @@ library bytesutils {
      * @param needle The slice to search for.
      * @return `self`
      */
-    function until(slice memory self, slice memory needle) internal returns (slice memory) {
+    function until(slice self, slice needle) internal returns (slice) {
         if (self._len < needle._len) {
             return self;
         }
@@ -521,7 +520,7 @@ library bytesutils {
      * @param needle The text to search for.
      * @return `self`.
      */
-    function find(slice memory self, slice memory needle) internal returns (slice memory) {
+    function find(slice self, slice needle) internal returns (slice) {
         uint ptr = findPtr(self._len, self._ptr, needle._len, needle._ptr);
         self._len -= ptr - self._ptr;
         self._ptr = ptr;
@@ -536,7 +535,7 @@ library bytesutils {
      * @param needle The text to search for.
      * @return `self`.
      */
-    function rfind(slice memory self, slice memory needle) internal returns (slice memory) {
+    function rfind(slice self, slice needle) internal returns (slice) {
         uint ptr = rfindPtr(self._len, self._ptr, needle._len, needle._ptr);
         self._len = ptr - self._ptr;
         return self;
@@ -552,7 +551,7 @@ library bytesutils {
      * @param token An output parameter to which the first token is written.
      * @return `token`.
      */
-    function split(slice memory self, slice memory needle, slice memory token) internal returns (slice memory) {
+    function split(slice self, slice needle, slice token) internal returns (slice) {
         uint ptr = findPtr(self._len, self._ptr, needle._len, needle._ptr);
         token._ptr = self._ptr;
         token._len = ptr - self._ptr;
@@ -575,7 +574,7 @@ library bytesutils {
      * @param needle The text to search for in `self`.
      * @return The part of `self` up to the first occurrence of `delim`.
      */
-    function split(slice memory self, slice memory needle) internal returns (slice memory token) {
+    function split(slice self, slice needle) internal returns (slice token) {
         split(self, needle, token);
     }
 
@@ -589,7 +588,7 @@ library bytesutils {
      * @param token An output parameter to which the first token is written.
      * @return `token`.
      */
-    function rsplit(slice memory self, slice memory needle, slice memory token) internal returns (slice memory) {
+    function rsplit(slice self, slice needle, slice token) internal returns (slice) {
         uint ptr = rfindPtr(self._len, self._ptr, needle._len, needle._ptr);
         token._ptr = ptr;
         token._len = self._len - (ptr - self._ptr);
@@ -611,7 +610,7 @@ library bytesutils {
      * @param needle The text to search for in `self`.
      * @return The part of `self` after the last occurrence of `delim`.
      */
-    function rsplit(slice memory self, slice memory needle) internal returns (slice memory token) {
+    function rsplit(slice self, slice needle) internal returns (slice token) {
         rsplit(self, needle, token);
     }
 
@@ -621,7 +620,7 @@ library bytesutils {
      * @param needle The text to search for in `self`.
      * @return The number of occurrences of `needle` found in `self`.
      */
-    function count(slice memory self, slice memory needle) internal returns (uint count) {
+    function count(slice self, slice needle) internal returns (uint count) {
         uint ptr = findPtr(self._len, self._ptr, needle._len, needle._ptr) + needle._len;
         while (ptr <= self._ptr + self._len) {
             count++;
@@ -635,7 +634,7 @@ library bytesutils {
      * @param needle The text to search for in `self`.
      * @return True if `needle` is found in `self`, false otherwise.
      */
-    function contains(slice memory self, slice memory needle) internal returns (bool) {
+    function contains(slice self, slice needle) internal returns (bool) {
         return rfindPtr(self._len, self._ptr, needle._len, needle._ptr) != self._ptr;
     }
 
@@ -646,7 +645,7 @@ library bytesutils {
      * @param other The second slice to concatenate.
      * @return The concatenation of the two bytestrings.
      */
-    function concat(slice memory self, slice memory other) internal returns (bytes memory) {
+    function concat(slice self, slice other) internal returns (bytes) {
         var ret = new bytes(self._len + other._len);
         uint retptr;
         assembly { retptr := add(ret, 32) }
@@ -661,7 +660,7 @@ library bytesutils {
      * @param new_len The new length.
      * @return The truncated slice.
      */
-    function truncate(slice memory self, uint new_len) internal returns (slice memory){
+    function truncate(slice self, uint new_len) internal returns (slice){
         if(self._len > new_len){
             self._len = new_len;
         }
@@ -677,7 +676,7 @@ library bytesutils {
      * @return A newly allocated bytestring containing all the slices in `parts`,
      *         joined with `self`.
      */
-    function join(slice memory self, slice[] memory  parts) internal returns (bytes memory) {
+    function join(slice self, slice[] parts) internal returns (bytes) {
         if (parts.length == 0)
             return "";
 
@@ -689,7 +688,7 @@ library bytesutils {
         uint retptr;
         assembly { retptr := add(ret, 32) }
 
-        for(uint i = 0; i < parts.length; i++) {
+        for(i = 0; i < parts.length; i++) {
             memcpy(retptr, parts[i]._ptr, parts[i]._len);
             retptr += parts[i]._len;
             if (i < parts.length - 1) {

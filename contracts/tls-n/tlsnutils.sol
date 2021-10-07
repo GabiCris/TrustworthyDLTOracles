@@ -1,5 +1,4 @@
-pragma solidity >=0.4.11 <0.7.0;
-
+pragma solidity ^0.4.11;
 import "./bytesutils.sol";
 import "./ECMath.sol";
 
@@ -13,7 +12,7 @@ library tlsnutils{
      * @param conversation_part 0 = Requester(Client), 1 = Generator(Server).
      * @return The response as a bytestring.
     */
-    function getConversationPart(bytes memory proof, bytes1 conversation_part) private returns(bytes memory){
+    function getConversationPart(bytes memory proof, bytes1 conversation_part) private returns(bytes){
         bytes memory response = "";
         uint16 readPos = 96;
         // Skipping the certificate chain
@@ -49,7 +48,7 @@ library tlsnutils{
      * @param proof The proof.
      * @return The request as a bytestring.
     */
-    function getRequest(bytes memory proof) internal returns(bytes memory){
+    function getRequest(bytes memory proof) internal returns(bytes){
         return getConversationPart(proof, 0);
     }
 
@@ -59,7 +58,7 @@ library tlsnutils{
      * @param proof The proof.
      * @return The response as a bytestring.
     */
-    function getResponse(bytes memory proof) internal returns(bytes memory){
+    function getResponse(bytes memory proof) internal returns(bytes){
         return getConversationPart(proof, 1);
     }
 
@@ -70,7 +69,7 @@ library tlsnutils{
      * @param proof The proof.
      * @return The HTTP body in case the request was valid. (200 OK) 
     */
-    function getHTTPBody(bytes memory proof) internal returns(bytes memory){
+    function getHTTPBody(bytes memory proof) internal returns(bytes){
         bytes memory response = getResponse(proof);
         bytesutils.slice memory code = response.toSlice().truncate(15);
         require(code.equals("HTTP/1.1 200 OK".toSlice()));
@@ -85,7 +84,7 @@ library tlsnutils{
      * @param proof The proof.
      * @return The Host as a bytestring.
     */
-    function getHost(bytes memory proof) internal returns(bytes memory){
+    function getHost(bytes memory proof) internal returns(bytes){
         bytesutils.slice memory request = getRequest(proof).toSlice();
         // Search in Headers
         request = request.split("\r\n\r\n".toSlice());
@@ -106,7 +105,7 @@ library tlsnutils{
      * @param proof The proof.
      * @return The request as a bytestring. Empty string on error.
     */
-    function getHTTPRequestURL(bytes memory proof) internal returns(bytes memory){
+    function getHTTPRequestURL(bytes memory proof) internal returns(bytes){
         bytes memory request = getRequest(proof);
         bytesutils.slice memory slice = request.toSlice();
         bytesutils.slice memory delim = " ".toSlice();
@@ -122,7 +121,7 @@ library tlsnutils{
      * @param proof The proof.
      * @return True iff valid.
     */
-	function verifyProof(bytes memory proof) public returns(bool) {
+	function verifyProof(bytes memory proof) returns(bool) {
 		uint256 qx = 0x0de2583dc1b70c4d17936f6ca4d2a07aa2aba06b76a97e60e62af286adc1cc09; //public key x-coordinate signer
 		uint256 qy = 0x68ba8822c94e79903406a002f4bc6a982d1b473f109debb2aa020c66f642144a; //public key y-coordinate signer
 		return verifyProof(proof, qx, qy);
@@ -133,7 +132,7 @@ library tlsnutils{
      * @param proof The proof.
      * @return True iff valid.
     */
-	function verifyProof(bytes memory proof, uint256 qx, uint256 qy) public returns(bool) {
+	function verifyProof(bytes memory proof, uint256 qx, uint256 qy) returns(bool) {
 		bytes32 m; // Evidence Hash in bytes32
 		uint256 e; // Evidence Hash in uint256
 		uint256 sig_r; //signature parameter
@@ -156,7 +155,7 @@ library tlsnutils{
      * @param proof The proof.
      * @return sig_r, sig_s: signature parts and hashchain: the final evidence hash.
     */
-  function parseProof(bytes memory proof) public returns(uint256 sig_r, uint256 sig_s, bytes32 hashchain)  {
+  function parseProof(bytes memory proof) returns(uint256 sig_r, uint256 sig_s, bytes32 hashchain) {
 
       uint16 readPos = 0; // Initialize index in proof bytes array
       bytes16 times; // Contains Timestamps for signature validation

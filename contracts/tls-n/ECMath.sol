@@ -1,5 +1,4 @@
-pragma solidity >=0.4.11 <0.7.0;
-
+pragma solidity ^0.4.8;
 
 // Library for secp256r1
 library ECMath {
@@ -13,7 +12,7 @@ library ECMath {
   uint256 constant p=115792089210356248762697446949407573530086143415290314195533631308867097853951;
   uint256 constant n=115792089210356248762697446949407573529996955224135760342422259061068512044369;
   uint256 constant h=1;
-  
+
   /*
   //signature parameters
   //04 uncompressed public key, qx,qy exactly 128bit each
@@ -50,7 +49,7 @@ library ECMath {
   }
   */
 
-  function ecdsaverify(uint256 qx, uint256 qy, uint256 e, uint256 r, uint256 s) public returns (bool) {
+  function ecdsaverify(uint256 qx, uint256 qy, uint256 e, uint256 r, uint256 s) returns (bool) {
 
     if (!isPoint(qx,qy)) {
       return false;
@@ -87,7 +86,7 @@ library ECMath {
 
   // point addition for elliptic curve in jacobian coordinates
   // formula from https://en.wikibooks.org/wiki/Cryptography/Prime_Curve/Jacobian_Coordinates
-  function ecadd(uint256[3] memory P, uint256[3] memory Q) private returns (uint256[3] memory R) {
+  function ecadd(uint256[3] P, uint256[3] Q) private returns (uint256[3] R) {
 
     uint256 u1;
     uint256 u2;
@@ -130,7 +129,7 @@ library ECMath {
 
   //point doubling for elliptic curve in jacobian coordinates
   //formula from https://en.wikibooks.org/wiki/Cryptography/Prime_Curve/Jacobian_Coordinates
-  function ecdouble(uint256[3] memory P) private returns(uint256[3] memory R){
+  function ecdouble(uint256[3] P) private returns(uint256[3] R){
 
     //return point at infinity
     if (P[1]==0) {
@@ -154,7 +153,7 @@ library ECMath {
   }
 
   // function for elliptic curve multiplication in jacobian coordinates using Double-and-add method
-  function ecmul(uint256[3] memory P, uint256 d) private returns (uint256[3] memory R) {
+  function ecmul(uint256[3] P, uint256 d) private returns (uint256[3] R) {
 
     R[0]=0;
     R[1]=0;
@@ -181,7 +180,7 @@ library ECMath {
   }
 
   //jacobian to affine coordinates transfomration
-  function JtoA(uint256[3] memory P) private returns (uint256[2] memory Pnew) {
+  function JtoA(uint256[3] P) private returns (uint256[2] Pnew) {
     uint zInv = invmod(P[2],p);
     uint zInv2 = mulmod(zInv, zInv, p);
     Pnew[0] = mulmod(P[0], zInv2, p);

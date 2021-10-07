@@ -12,6 +12,10 @@ module.exports = function(deployer) {
   deployer.deploy(bytesutils);
   deployer.link(ECMath, tlsnutils);
   deployer.deploy(tlsnutils);
+  deployer.link(JsmnSolLib, Verification);
+  deployer.link(bytesutils, Verification);
+  deployer.link(tlsnutils, Verification);
   deployer.deploy(Verification);
   deployer.deploy(LicenseManager);
+
 };

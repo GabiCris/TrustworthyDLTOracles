@@ -1,5 +1,4 @@
-pragma solidity >=0.4.11 <0.7.0;
-
+pragma solidity ^0.4.8;
 import "./tls-n/JsmnSolLib.sol";
 import "./tls-n/bytesutils.sol";
 import "./tls-n/tlsnutils.sol";
