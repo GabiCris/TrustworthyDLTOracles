@@ -1,5 +1,7 @@
 pragma solidity >=0.4.11 <0.7.0;
 
+import "./RoyaltyComputation.sol";
+
 contract Aggregator {
     address public royaltyComputationContract;
     
@@ -16,11 +18,17 @@ contract Aggregator {
         string rawData;
     }
 
+    event AllRoyaltyParamAvailable(string msg, uint256 timestamp);
+
     uint[] public royaltyParameterIds;
     mapping(uint => ParameterDescriptor) royaltyParametersDescriptors;
     mapping(uint => RoyaltyParameter) royaltyParams;
 
     function areAllParamAvailable() public returns(bool) {
+        emit AllRoyaltyParamAvailable("Aggregator finished collecting royalty parameters.", block.timestamp);
+        address adr = 0xD9BF44c40F097815caA9c9BEc87B762d87Fc2074;
+        RoyaltyComputation r = RoyaltyComputation(adr);
+        r.computeRoyalty();
         return true;
     }
 

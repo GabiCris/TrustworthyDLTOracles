@@ -15,6 +15,8 @@ contract LicenseManager {
         string message;
     }
 
+    event ReceivedRoyaltyComputation(string msg, uint256 timestamp, uint256 royaltyValue);
+
     // originator address. Should be a ds that holds multiple messages for the same address
     mapping (address => TLS_message) public tlsMessageHistory;
 
@@ -37,5 +39,9 @@ contract LicenseManager {
 
     function verifyMessage(address sender) public returns(bool coorect) {
         return true;
+    }
+
+    function receivedComputedRoyalty() public returns(uint royaltyValue) {
+        emit ReceivedRoyaltyComputation("LicenseManager received computed royalty Value.", block.timestamp, 256);
     }
 }

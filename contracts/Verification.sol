@@ -2,13 +2,17 @@ pragma solidity ^0.4.8;
 import "./tls-n/tlsnutils.sol";
 import "./tls-n/JsmnSolLib.sol";
 import "./tls-n/bytesutils.sol";
-
+import "./Aggregator.sol";
 
 contract Verification {
     using bytesutils for *;
 
     bytes32 pubKey;
     address public oracleAddress;
+    string receivedData;
+    uint receivedDataInt;
+
+    event SuccesfulDataCollection(string msg, uint value);
   
     // constructor (address _oracleAddress) public {
     //     oracleAddress = _oracleAddress;
@@ -21,6 +25,21 @@ contract Verification {
     //     emit SuccesfulMessage(msg);
     // }
      
+    function setData(string _data) public {
+        receivedData = _data;
+    } 
+
+    function setDataInt(uint _data) public {
+        receivedDataInt = _data;
+        emit SuccesfulDataCollection("Succesfully retrieved data from Node.js server", receivedDataInt);
+        address adr = 0x4BFF9AFcF839325C9e5bb3c505c7664C49406673;
+        Aggregator a1 = Aggregator(adr);
+        a1.areAllParamAvailable();
+    }
+
+    function detDataInt() public returns(uint) {
+        return receivedDataInt;
+    }
 
     function  PubKey(bytes32 initKey) public {
         pubKey = initKey;
@@ -28,6 +47,10 @@ contract Verification {
 
     function  getPubKey() public returns (bytes32) {
         return pubKey;
+    }
+    
+    function getTestData() public returns (string) {
+        return "Test data from VC";
     }
 
     function submitProofOfPrice(bytes memory proof) public {
