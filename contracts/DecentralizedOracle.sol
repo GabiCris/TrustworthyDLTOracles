@@ -49,6 +49,10 @@ contract DecentralizedOracle {
         string agreedValue
     );
 
+// decimals at /100
+function getEuroExchange() public returns (uint) {
+  return 112;
+}
 //called by the oracle to record its answer
 function updateRequest (uint _id, string memory _valueRetrieved) public {
   Request storage currRequest = requests[_id];
